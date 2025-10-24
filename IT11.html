@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TECHMCQ.IN - Technology MCQ Quiz</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fb;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .hidden { display: none; }
+    header {
+        text-align: center;
+        padding: 20px 10px;
+    }
+    header h1 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    header h2 {
+        font-size: 44px;
+        font-weight: 900;
+        line-height: 1.2;
+    }
+    .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 18px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+    button {
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .btn-blue { background: #2563eb; color: white; }
+    .btn-blue:hover { background: #1d4ed8; transform: scale(1.02); }
+    .btn-indigo { background: #4f46e5; color: white; }
+    .btn-indigo:hover { background: #4338ca; }
+    .btn-green { background: #16a34a; color: white; }
+    .btn-green:hover { background: #15803d; }
+    .warning { color: red; font-size: 14px; margin-top: 8px; display: none; }
+    .result { text-align: center; padding: 20px; }
+    .option { display: flex; align-items: center; background: #f9fafb; padding: 8px 12px; margin: 6px 0; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+    .option:hover { background: #e5e7eb; }
+    input[type="radio"] {
+        appearance: none;
+        border: 2px solid #3b82f6;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+        position: relative;
+    }
+    input[type="radio"]:checked {
+        background-color: #3b82f6;
+    }
+    input[type="radio"]:checked::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+    }
+
+    .news-img {
+        max-width: 250px;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+    .news-item {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    .news-content {
+        flex: 1;
+        min-width: 200px;
+    }
+    @media (max-width: 600px) {
+        .news-item { flex-direction: column; align-items: center; }
+        .news-img { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+ <img src="https://i.ibb.co/ym7dJ150/logo.jpg"  alt= height=20" width="300">
+      <div style="background-color:palegreen;">
+        <h1>TECHMCQ.IN</h1>
+      </div>
+      <h2>
+        <span style="color: red;">T</span><span style="color: blue;">E</span><span style="color: purple;">C</span><span style="color: green;">H</span>
+        <span style="color: blue;">N</span><span style="color: red;">O</span>&nbsp;
+        <span style="color: skyblue;">G</span><span style="color: black;">.</span><span style="color: orange;">K</span>&nbsp;
+        <span style="color: green;">M</span><span style="color: violet;">C</span><span style="color: limegreen;">Q</span>
+      </h2>
+    </header>
+
+    <section id="start-screen" class="card">
+      <p> <span class="letter-e"
+          style="color:limegreen;"><b>Welcome to the Technology related MCQ Test Website!</b><br>
+        This platform is designed to help you assess and improve your understanding of computers. 
+        Whether you're preparing for exams, brushing up on knowledge, or testing your skills, 
+        this website provides a series of multiple-choice questions.</b></span><br><br><label
+      </p>
+      <label for="user-name"><b>Enter your name:</b></label>
+      <input type="text" id="user-name" required>
+      <button class="btn-blue" onclick="startQuiz()">Start Quiz</button>
+      <p id="name-error" class="warning">Please enter your name to start the quiz.</p>
+    </section>
+
+    <section id="quiz-screen" class="hidden">
+      <div id="question-container"></div>
+      <div style="text-align:center;">
+        <button class="btn-indigo" onclick="submitQuiz()">Submit Quiz</button>
+      </div>
+    </section>
+
+    <section id="result-screen" class="hidden card result">
+      <h2>Quiz Complete!</h2>
+      <p id="result-message"></p>
+      <button class="btn-green" onclick="location.reload()">Take Quiz Again</button>
+    </section>
+
+    <section id="news-section" class="card">
+      <h2 style="text-align:center; color:#16a34a;">Latest News: Viksit Bharat 2025</h2>
+      <div class="news-container">
+
+        <div class="news-item">
+          <img src="https://img.youtube.com/vi/tpp00HjUrB8/maxresdefault.jpg" alt="Exploring the 4 Themes" class="news-img">
+          <div class="news-content">
+            <h3>Exploring the 4 Themes of Viksit Bharat Buildathon 2025</h3>
+            <p>Students and innovators showcase ideas to transform India through technology and sustainability.</p>
+            <a href="https://www.youtube.com/watch?v=tpp00HjUrB8" target="_blank">▶ Watch on YouTube</a>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <img src="https://img.youtube.com/vi/NoanIOQbyHA/maxresdefault.jpg" alt="PM Modi’s Bold Push" class="news-img">
+          <div class="news-content">
+            <h3>PM Modi’s Bold Push For Youth Innovation</h3>
+            <p>Prime Minister Modi motivates young minds at Vigyan Bhawan to lead India's development journey.</p>
+            <a href="https://www.youtube.com/watch?v=NoanIOQbyHA" target="_blank">▶ Watch on YouTube</a>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <img src="https://img.youtube.com/vi/jjj91zUMocA/maxresdefault.jpg" alt="Navi Mumbai Project" class="news-img">
+          <div class="news-content">
+            <h3>PM Modi inaugurates Navi Mumbai Development Project</h3>
+            <p>A major step toward infrastructure growth and sustainable city planning under Viksit Bharat vision.</p>
+            <a href="https://www.youtube.com/watch?v=jjj91zUMocA" target="_blank">▶ Watch on YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "The CPU consists of which two main components?", options: ["ALU and CU", "ROM and RAM", "HDD and SSD", "Monitor and Keyboard"], correct: 0 },
+      { q: "What does RAM stand for?", options: ["Random Access Memory", "Read Access Memory", "Rapid Action Memory", "Run Access Mode"], correct: 0 },
+      { q: "Which memory is non-volatile?", options: ["RAM", "ROM", "Cache", "Register"], correct: 1 },
+      { q: "A 1 KB equals how many bytes?", options: ["1000", "1024", "2048", "512"], correct: 1 },
+      { q: "Which of the following is a secondary storage device?", options: ["RAM","Cache Memory","Hard Disk Drive","ROM"], correct: 2 },
+      { q: "Which device is used for input?", options: ["Monitor","Printer","Keyboard","Speaker"], correct: 2 },
+      { q: "IPO Cycle stands for ___________.?", options: ["Input Process Output","Individual Person Outcome","Internal Process Outcome","None of the above"], correct: 0 },
+    { q: "What is HTTP 404?",options: ["An error message indicating server not found"," An error message indicating moved permanently "," An error message indicating forbidden ","An error message indicating server found"], correct: 0 },
+    { q: "  Internet & Networking What does 'WWW' stand for. ?", options: ["World Wide Web","World Web Window","Wide World Web","Web Wide World"], correct: 0 },
+    { q: "Who is the father of Computers?", options: ["James Gosling","Charles Babbage","Dennis Ritchie"," Bjarne Stroustrup "], correct: 1 },
+    { q: "What is the full form of CPU?", options: ["Computer Processing Unit","Computer Principle Unit","Central Processing Unit","Control Processing Unit"], correct: 2 },
+    { q: " Which of the following is the first neural network computer ?", options: ["AN","AM","RFD","SNARC"], correct: 3 },
+    { q: " What is Cyber Security ?", options: ["Cyber Security provides security against malware","Cyber Security provides security against cyber-terrorists","Cyber Security protects a system from cyber attacks","All of the above"], correct: 3},
+    { q: "IT security in any firm or organization is maintained and handled by ____________________?", options: ["Software Security Specialist","CEO of the organization","Security Auditor","IT Security Engineer"], correct: 3 },
+    { q: "Who is known as the Father of the internet ?", options: ["Aristotle","Charles Babbage","Vint-carf","Bill Gates"], correct: 2 },
+    { q: "What is the primary function of a firewall?", options: ["To speed up the internet connection","To protect the system from unwanted access and malicious applications","To manage computer hardware","To store large amounts of data"], correct: 1 },
+    { q: "Which of the following is NOT a type of software?", options: ["Operating System","Application Software ","Motherboard","Utility Software "], correct: 1},
+    { q: " BYOD stands for?", options: ["Bring Your Own Device","Bring Your Own Data ","Bring Your Own Decanter","Bring Your Own bottle"], correct: 0 },
+    { q: "What is the full form of URL?", options: ["Universal Resource Locator","Uniform Resource Locator","Unified Resource Locator","Universal Reference Link"], correct: 1 },
+    { q: "Which AI technology is critical for enabling autonomous vehicles to perceive and navigate their surroundings?", options: ["Predictive Maintenance","Computer Vision","Natural Language Processing","Reinforcement Learning"], correct: 1 },
+    { q: "A software program that masquerades as a legitimate application but contains malicious code is known as a?", options: ["Virus","Worm","Trojan","Firmware"], correct: 2 },
+    { q: "Which storage engine enables access to tables from a MySQL server managed by another server?", options: ["MyISAM","FEDERATED","EXAMPLE","InnoDB"], correct: 1 },
+    { q: "Which of the following is the full form of RDBMS?", options: ["Relational Data Management System","Relational Database Management System","Relative Database Management System","Regional Data Management System"], correct: 0 },
+    { q: "Identify the networking device responsible for routing data packets based on their destination addresses?", options: ["Hub","Switch","Router","Modems"], correct: 2 },
+    { q: "What is an appropriate method to protect your data online?", options: ["Using weak passwords", "Sharing personal information on social media","Using strong, unique passwords for different accounts", "Clicking on suspicious links"], correct: 2 },
+
+{ q: "Which of the following makes use of pandas and returns data in a series or DataFrame?", options: ["freedapi", "pandaSDMX", "OutPy", "None of the mentioned"], correct: 0 },
+
+{ q: "Software is defined as _?", options: ["set of programs","set of programs, documentation & configuration of data","documentation and configuration of", "None of the mentioned"], correct: 1},
+
+{ q: "Which of the following is a primary storage device?", options: ["Hard Disk Drive", "ROM","USB Drive", "CD-ROM"], correct: 1},
+    { q: "Which programming language is primarily used for web development?", options: ["Python","HTML","C++","Java"],
+
+correct: 1},
+
+{ q: "Which device is used to convert digital signals to analog signals for transmission over telephone lines?", options: ["Modem", "Router", "Switch", "Hub"],
+
+correct: 0}
+    ];
+
+    let userName = "";
+    const userAnswers = Array(questions.length).fill(-1);
+
+    function startQuiz() {
+      const nameInput = document.getElementById("user-name");
+      const error = document.getElementById("name-error");
+      if (nameInput.value.trim() === "") {
+        error.style.display = "block";
+        nameInput.focus();
+        return;
+      }
+      error.style.display = "none";
+      userName = nameInput.value.trim();
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("quiz-screen").classList.remove("hidden");
+      renderQuestions();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("question-container");
+      container.innerHTML = "";
+      questions.forEach((q, i) => {
+        const optionsHTML = q.options.map((opt, j) => `
+          <label class="option">
+            <input type="radio" name="q${i}" value="${j}" onchange="recordAnswer(${i}, ${j})">
+            ${String.fromCharCode(65+j)}. ${opt}
+          </label>
+        `).join("");
+        container.innerHTML += `
+          <div class="card question" id="q${i}">
+            <p><b>Question ${i+1}:</b> ${q.q}</p>
+            ${optionsHTML}
+          </div>
+        `;
+      });
+    }
+
+    function recordAnswer(qIndex, optIndex) {
+      userAnswers[qIndex] = optIndex;
+    }
+
+    function submitQuiz() {
+      const unanswered = userAnswers.indexOf(-1);
+      if (unanswered !== -1) {
+        alert(`Please answer Question ${unanswered + 1} before submitting.`);
+        document.getElementById(`q${unanswered}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      let score = 0;
+      for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) score++;
+      }
+
+      const percent = (score / questions.length) * 100;
+      let message = percent < 60 ? "Keep practicing, you can improve!" :
+                    percent < 85 ? "Good job! You did well." :
+                    "Excellent! You mastered it.";
+
+      document.getElementById("quiz-screen").classList.add("hidden");
+      document.getElementById("result-screen").classList.remove("hidden");
+      document.getElementById("result-message").innerHTML = `
+        Hello, <b style="color:#2563eb;">${userName}</b>!<br><br>
+        You scored <b style="color:#16a34a;">${score}/${questions.length}</b> (${percent.toFixed(2)}%)<br><br>
+        ${message}
+      `;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
